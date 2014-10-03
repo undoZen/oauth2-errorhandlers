@@ -15,7 +15,7 @@ module.exports = function (os) {
       err.message = req.url === '/token' ? 'auth failed' : 'access token is required';
       err.code = 'access_denied';
       err.status = 403;
-    } else if ((err.status != null) && err.status >= 500) {
+    } else if (!err.status || err.status >= 500) {
       console.error(err.stack);
     }
     return next(err);
